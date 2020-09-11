@@ -13,7 +13,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', (req, res)=> {
   res.send('hello')
 })
-require("./routes/user.routes.js")(app);
+
+
+
 app.listen(port, ()=> {
   console.log(`Api is running on port ${port}`)
 })
