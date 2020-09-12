@@ -1,7 +1,7 @@
 require('dotenv').config()
 const mongoose = require('mongoose');
 
-const connectionString = process.env.MONGODB_URI || "mongodb://localhost/travel_book"
+const connectionString = process.env.MONGODB_URI || "mongodb://localhost:27017/travel_book"
 const configOptions = {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -14,5 +14,7 @@ mongoose.connect(connectionString, configOptions)
     .catch(err => console.log(`MongoDB connection error: ${err}`))
 
 module.exports = {
-    User: require('./user')
+    User: require('./user'),
+    Trip: require('./trip'),
+    Memory: require('./memory')
 }

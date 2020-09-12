@@ -12,7 +12,7 @@ const index = async (req, res) => {
     // }
 }
 
-const create = async (req, res) => {
+// const create = async (req, res) => {
     // try {
     //     const data = await JSON.parse(req.body.body)
     //     const createdPost = await db.Post.create(data)
@@ -32,9 +32,9 @@ const create = async (req, res) => {
     // } catch (error) {
     //     console.log(error)
     // }
-}
+// }
 
-const update = async (req, res) => {
+// const update = async (req, res) => {
     // try {
     //     const updatedPost = await db.Post.findByIdAndUpdate(req.params.id, req.body, {new: true})
     //     if (!updatedPost) return await res.json({
@@ -45,9 +45,9 @@ const update = async (req, res) => {
     // } catch (error) {
     //     console.log(error)
     // }
-}
+// }
 
-const show = async (req, res) => {
+// const show = async (req, res) => {
     // try {
     //     const foundPost = await db.Post.findById(req.params.id)
     //     if (!foundPost) return await res.json({
@@ -57,9 +57,9 @@ const show = async (req, res) => {
     // } catch (error) {
     //     console.log(error)
     // }
-}
+// }
 
-const destroy = async (req, res) => {
+// const destroy = async (req, res) => {
     // try {
     //     const deletedPost = await db.Post.findOneAndDelete({
     //         songId: req.params.songId
@@ -91,8 +91,9 @@ const destroy = async (req, res) => {
     // } catch (error) {
     //     console.log(error)
     // }
-}
+// }
 
 module.exports = {
-    index, create, update, show, destroy
+    index 
+    // create, update, show, destroy
 }
