@@ -5,6 +5,8 @@ const routes = require("./routes");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
+require("./passport/googleStrategy");
+
 const app = express();
 
 const Trip = require("./models/trip");
@@ -27,6 +29,15 @@ app.use(bodyParser.json());
 
 // parse requests of content-type: application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// CORS
+app.use(
+  cors({
+    origin: [process.env.CLIENT_URI],
+    credentials: true,
+    optionsSuccessStatus: 200,
+  })
+);
 
 //middleware - session config
 app.use(
