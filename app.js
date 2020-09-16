@@ -49,6 +49,7 @@ app.use(passport.session());
 app.use("/api/v1/trips", routes.trips);
 // app.use('/api/v1/users', routes.users)
 // app.use('/api/v1/memories', routes.memories)
+app.use("/api/v1/auth", routes.auth);
 
 app.listen(process.env.PORT, () => {
   console.log(`Api is running on port ${process.env.PORT}`);
