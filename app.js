@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const bodyParser = require("body-parser");
 const routes = require("./routes");
+const cors = require("cors");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");

@@ -7,7 +7,6 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_SECRET,
-      callbackURL: process.env.GOOGLE_CALLBACK,
     },
     function (accessToken, refreshToken, profile, cb) {
       User.findOne(
@@ -25,10 +24,10 @@ passport.use(
           } else {
             // we have a new user!
             const newUser = new User({
-              avatar = profile.photos[0].value,
+              avatar: profile.photos[0].value,
               name: profile.displayName,
               email: profile.emails[0].value,
-              authId: profile.id,
+              googleId: profile.id,
             });
             newUser.save(function (err) {
               if (err) return cb(err);

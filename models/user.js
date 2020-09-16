@@ -11,7 +11,7 @@ const UserSchema = new Schema({
   ],
   email: String,
   birthday: Date,
-  authId: String,
+  googleId: String,
   avatar: String,
 });
 
