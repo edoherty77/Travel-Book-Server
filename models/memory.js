@@ -6,6 +6,7 @@ const MemorySchema = new Schema({
     latitude: String,
     longitude: String,
   },
+  locationName: String,
   type: String,
   means: String,
   photo: String,

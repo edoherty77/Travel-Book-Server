@@ -20,6 +20,7 @@ const create = async (req, res) => {
     const foundTrip = await db.Trip.findOne({ name: data.tripName })
     foundTrip.memories.push(createdMemory)
     foundTrip.save()
+    createdMemory.save()
     await res.json({ memory: createdMemory })
   } catch (error) {
     console.log(error)

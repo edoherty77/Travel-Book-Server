@@ -42,17 +42,21 @@ const create = async (req, res) => {
 // }
 // }
 
-// const show = async (req, res) => {
-// try {
-//     const foundPost = await db.Post.findById(req.params.id)
-//     if (!foundPost) return await res.json({
-//         message: 'No post with that ID'
-//     })
-//     await res.json({post: foundPost})
-// } catch (error) {
-//     console.log(error)
-// }
-// }
+const show = async (req, res) => {
+  try {
+    const foundTrip = await db.Trip.findOne({ name: req.params.name }).populate(
+      'memories',
+    )
+    if (!foundTrip)
+      return await res.json({
+        message: 'Sorry',
+      })
+    console.log(foundTrip)
+    await res.json({ trip: foundTrip })
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 // const destroy = async (req, res) => {
 // try {
@@ -91,4 +95,5 @@ const create = async (req, res) => {
 module.exports = {
   index,
   create,
+  show,
 }
