@@ -2,9 +2,14 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const MemorySchema = new Schema({
-    location: String,
-    type: String,
-    means: String,
+  location: {
+    latitude: String,
+    longitude: String,
+  },
+  locationName: String,
+  type: String,
+  means: String,
+  photo: String,
 })
 
 const Memory = mongoose.model('Memory', MemorySchema)

@@ -3,11 +3,14 @@ const Schema = mongoose.Schema
 
 const TripSchema = new Schema({
   name: String,
-  // photos: [String]
-  // memory: [{
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: 'Memory'
-  // }],
+  year: Number,
+  photos: [String],
+  memories: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Memory',
+    },
+  ],
   // miles : {
   //   plane: Number,
   //   boat: Number,
