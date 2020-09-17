@@ -5,7 +5,7 @@ const TripSchema = new Schema({
   name: String,
   year: Number,
   photos: [String],
-  memory: [
+  memories: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Memory',
