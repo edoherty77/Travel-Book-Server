@@ -40,9 +40,14 @@ const create = async (req, res) => {
   const avatar = body.user.photoUrl
   const user = { email, googleId, name, avatar }
   try {
-    const createdUser = await db.User.create(user)
-    await res.json({ user: createdUser })
-    console.log('userAdded:', createdUser)
+    const checkUser = await db.User.findOne({ googleId: googleId })
+    if (checkUser) {
+      console.log('user already exists')
+      await res.json({ user: checkUser })
+    } else {
+      const createdUser = await db.User.create(user)
+      await res.json({ user: createdUser })
+    }
   } catch (error) {
     console.log(error)
   }
