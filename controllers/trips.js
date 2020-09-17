@@ -3,7 +3,6 @@ const db = require('../models')
 const index = async (req, res) => {
   try {
     const foundTrips = await db.Trip.find({})
-    console.log(foundTrips)
     if (!foundTrips.length)
       return await res.json({
         message: 'No posts found',
@@ -14,27 +13,21 @@ const index = async (req, res) => {
   }
 }
 
-// const create = async (req, res) => {
-// try {
-//     const data = await JSON.parse(req.body.body)
-//     const createdPost = await db.Post.create(data)
-
-//     const foundPlaylist = await db.Playlist.findById(req.params.id)
-//     foundPlaylist.posts.push(createdPost)
-//     await foundPlaylist.save()
-
-//     const foundUser = await db.User.findOne({
-//         spotifyId: data.userSpotId
-//     })
-//     foundUser.posts.push(createdPost)
-//     await foundUser.save()
-
-//     await createdPost.save()
-//     await res.json({post: createdPost})
-// } catch (error) {
-//     console.log(error)
-// }
-// }
+const create = async (req, res) => {
+  try {
+    const name = await JSON.parse(req.body.body)
+    const date = new Date()
+    const year = date.getFullYear()
+    const data = {
+      name: name,
+      year: year,
+    }
+    const createdTrip = await db.Trip.create(data)
+    await res.json({ trip: createdTrip })
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 // const update = async (req, res) => {
 // try {
@@ -97,4 +90,5 @@ const index = async (req, res) => {
 
 module.exports = {
   index,
+  create,
 }

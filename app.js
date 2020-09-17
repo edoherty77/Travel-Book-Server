@@ -10,7 +10,8 @@ const app = express()
 const Trip = require('./models/trip')
 
 // const data = {
-//   name: 'Nicaragua',
+//   name: 'San Diego',
+//   year: 2015,
 // }
 
 // Trip.create(data, (err, created) => {

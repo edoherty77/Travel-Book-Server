@@ -3,7 +3,7 @@ const ctrl = require('../controllers')
 
 router.get('/', ctrl.trips.index)
 // router.get('/:id', ctrl.trip.controller.show)
-// router.post('/:id', ctrl.trip.controller.create)
+router.post('/create', ctrl.trips.create)
 // router.delete('/:songId', ctrl.trip.controller.destroy)
 // router.put('/:id', ctrl.trip.controller.update)
 
