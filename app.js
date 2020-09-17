@@ -59,7 +59,7 @@ app.use(passport.session());
 
 // routes
 app.use("/api/v1/trips", routes.trips);
-// app.use('/api/v1/users', routes.users)
+app.use("/api/v1/users", routes.users);
 // app.use('/api/v1/memories', routes.memories)
 app.use("/api/v1/auth", routes.auth);
 
