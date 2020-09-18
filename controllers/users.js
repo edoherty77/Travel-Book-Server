@@ -15,11 +15,10 @@ const index = async (req, res) => {
 };
 
 const show = async (req, res) => {
-  res.send("hi");
   try {
     const foundUser = await db.User.findOne({
       googleId: req.params.id,
-    }).populate("posts");
+    }).populate("trips");
     if (!foundUser)
       return res.json({
         message: "none found",
