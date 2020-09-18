@@ -14,6 +14,7 @@ const index = async (req, res) => {
 };
 
 const create = async (req, res) => {
+  console.log(req.body);
   try {
     const name = await JSON.parse(req.body.body);
     const date = new Date();
