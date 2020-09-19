@@ -19,10 +19,7 @@ const show = async (req, res) => {
     const foundUser = await db.User.findOne({
       googleId: req.params.id,
     }).populate("trips");
-    // if (!foundUser)
-    //   return res.json({
-    //     message: "none found",
-    //   });
+
     await res.json(foundUser);
   } catch (error) {
     console.log(error);
@@ -40,7 +37,7 @@ const create = async (req, res) => {
   try {
     const checkUser = await db.User.findOne({ googleId: googleId });
     if (checkUser) {
-      console.log("user already exists");
+      // console.log("user already exists");
       await res.json(checkUser);
     } else {
       const createdUser = await db.User.create(user);
