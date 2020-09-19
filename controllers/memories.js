@@ -1,16 +1,17 @@
 const db = require('../models')
 
-// const index = async (req, res) => {
-// try {
-//     const foundPosts = await db.Post.find({})
-//     if (!foundPosts.length) return await res.json({
-//         message: 'No posts found'
-//     })
-//     await res.json({posts: foundPosts})
-// } catch (error) {
-//     console.log(error)
-// }
-// }
+const index = async (req, res) => {
+  try {
+    const foundMemories = await db.Memory.find({})
+    if (!foundMemories.length)
+      return await res.json({
+        message: 'No memories found',
+      })
+    await res.json({ memories: foundMemories })
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const create = async (req, res) => {
   try {
@@ -41,15 +42,15 @@ const create = async (req, res) => {
 // }
 
 // const show = async (req, res) => {
-// try {
-//     const foundPost = await db.Post.findById(req.params.id)
-//     if (!foundPost) return await res.json({
-//         message: 'No post with that ID'
-//     })
-//     await res.json({post: foundPost})
-// } catch (error) {
-//     console.log(error)
-// }
+//   try {
+//       const foundPost = await db.Post.findById(req.params.id)
+//       if (!foundPost) return await res.json({
+//           message: 'No post with that ID'
+//       })
+//       await res.json({post: foundPost})
+//   } catch (error) {
+//       console.log(error)
+//   }
 // }
 
 // const destroy = async (req, res) => {
@@ -87,5 +88,6 @@ const create = async (req, res) => {
 // }
 
 module.exports = {
+  index,
   create,
 }
