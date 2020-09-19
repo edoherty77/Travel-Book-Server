@@ -33,13 +33,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // CORS
-app.use(
-  cors({
-    origin: [process.env.CLIENT_URI],
-    credentials: true,
-    optionsSuccessStatus: 200,
-  })
-);
+// app.use(
+//   cors({
+//     origin: [process.env.CLIENT_URI],
+//     credentials: true,
+//     optionsSuccessStatus: 200,
+//   })
+// );
 
 //middleware - session config
 app.use(
@@ -61,7 +61,7 @@ app.use(passport.session());
 // routes
 app.use("/api/v1/trips", routes.trips);
 app.use("/api/v1/users", routes.users);
-// app.use('/api/v1/memories', routes.memories)
+app.use("/api/v1/memories", routes.memories);
 app.use("/api/v1/auth", routes.auth);
 
 app.listen(process.env.PORT, () => {

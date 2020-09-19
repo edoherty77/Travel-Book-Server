@@ -1,56 +1,54 @@
-const db = require('../models')
+const db = require("../models");
 
 const index = async (req, res) => {
   try {
-    const foundUsers = await db.User.find({})
+    const foundUsers = await db.User.find({});
     if (!foundUsers.length)
       return await res.json({
-        message: 'No users found',
-      })
+        message: "No users found",
+      });
 
-    return await res.json({ users: foundUsers })
+    return await res.json(foundUsers);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
-// const show = async (req, res) => {
-//   res.send("hi");
-//   try {
-//       const foundUser = await db.User.findOne({
-//           spotifyId: req.params.id
-//       })
-//           .populate('posts')
-//       if (!foundUser) return res.json({
-//           message: 'none found'
-//       })
-//       await res.json({
-//           user: foundUser
-//       })
-//   } catch (error) {
-//       console.log(error)
-//   }
-// };
+const show = async (req, res) => {
+  try {
+    const foundUser = await db.User.findOne({
+      googleId: req.params.id,
+    }).populate("trips");
+    // if (!foundUser)
+    //   return res.json({
+    //     message: "none found",
+    //   });
+    await res.json(foundUser);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const create = async (req, res) => {
-  const body = JSON.parse(req.body.body)
-  const email = body.user.email
-  const googleId = body.user.id
-  const name = body.user.name
-  const avatar = body.user.photoUrl
-  const user = { email, googleId, name, avatar }
+  const body = JSON.parse(req.body.body);
+  console.log(body);
+  const email = body.email;
+  const googleId = body.id;
+  const name = body.name;
+  const avatar = body.photoUrl;
+  const user = { email, googleId, name, avatar };
   try {
-    const checkUser = await db.User.findOne({ googleId: googleId })
+    const checkUser = await db.User.findOne({ googleId: googleId });
     if (checkUser) {
-      console.log('user already exists')
-      await res.json({ user: checkUser })
+      console.log("user already exists");
+      await res.json(checkUser);
     } else {
-      const createdUser = await db.User.create(user)
-      await res.json({ user: createdUser })
+      const createdUser = await db.User.create(user);
+      await res.json(createdUser);
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
-module.exports = { index, create }
+module.exports = { index, show, create };

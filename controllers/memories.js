@@ -1,4 +1,4 @@
-const db = require('../models')
+const db = require("../models");
 
 // const index = async (req, res) => {
 // try {
@@ -14,18 +14,18 @@ const db = require('../models')
 
 const create = async (req, res) => {
   try {
-    const data = await JSON.parse(req.body.body)
-    console.log(data)
-    const createdMemory = await db.Memory.create(data)
-    const foundTrip = await db.Trip.findOne({ name: data.tripName })
-    foundTrip.memories.push(createdMemory)
-    foundTrip.save()
-    createdMemory.save()
-    await res.json({ memory: createdMemory })
+    const data = await JSON.parse(req.body.body);
+    console.log(data);
+    const createdMemory = await db.Memory.create(data.memory);
+    const foundTrip = await db.Trip.findOne({ name: data.tripName });
+    foundTrip.memories.push(createdMemory);
+    foundTrip.save();
+    createdMemory.save();
+    await res.json(createdMemory);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 // const update = async (req, res) => {
 // try {
@@ -88,4 +88,4 @@ const create = async (req, res) => {
 
 module.exports = {
   create,
-}
+};
