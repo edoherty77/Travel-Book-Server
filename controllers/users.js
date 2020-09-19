@@ -14,23 +14,22 @@ const index = async (req, res) => {
   }
 }
 
-// const show = async (req, res) => {
-//   res.send("hi");
-//   try {
-//       const foundUser = await db.User.findOne({
-//           spotifyId: req.params.id
-//       })
-//           .populate('posts')
-//       if (!foundUser) return res.json({
-//           message: 'none found'
-//       })
-//       await res.json({
-//           user: foundUser
-//       })
-//   } catch (error) {
-//       console.log(error)
-//   }
-// };
+const show = async (req, res) => {
+  try {
+    const foundUser = await db.User.findOne({
+      googleId: req.params.id,
+    }).populate('trips')
+    if (!foundUser)
+      return res.json({
+        message: 'none found',
+      })
+    await res.json({
+      user: foundUser,
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const create = async (req, res) => {
   const body = JSON.parse(req.body.body)
@@ -42,7 +41,7 @@ const create = async (req, res) => {
   try {
     const checkUser = await db.User.findOne({ googleId: googleId })
     if (checkUser) {
-      console.log('user already exists')
+      // console.log('user already exists')
       await res.json({ user: checkUser })
     } else {
       const createdUser = await db.User.create(user)
@@ -53,4 +52,4 @@ const create = async (req, res) => {
   }
 }
 
-module.exports = { index, create }
+module.exports = { index, create, show }

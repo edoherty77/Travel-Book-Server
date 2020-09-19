@@ -3,12 +3,12 @@ const Schema = mongoose.Schema
 
 const MemorySchema = new Schema({
   location: {
-    latitude: String,
-    longitude: String,
+    latitude: Number,
+    longitude: Number,
   },
   locationName: String,
   type: String,
-  means: String,
+  transpo: String,
   photo: String,
 })
 

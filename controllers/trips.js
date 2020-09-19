@@ -51,7 +51,7 @@ const show = async (req, res) => {
       return await res.json({
         message: 'Sorry',
       })
-    console.log(foundTrip)
+    // console.log(foundTrip)
     await res.json({ trip: foundTrip })
   } catch (error) {
     console.log(error)
