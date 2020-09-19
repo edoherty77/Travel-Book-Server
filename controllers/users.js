@@ -8,7 +8,7 @@ const index = async (req, res) => {
         message: "No users found",
       });
 
-    return await res.json({ users: foundUsers });
+    return await res.json(foundUsers);
   } catch (error) {
     console.log(error);
   }
@@ -19,13 +19,11 @@ const show = async (req, res) => {
     const foundUser = await db.User.findOne({
       googleId: req.params.id,
     }).populate("trips");
-    if (!foundUser)
-      return res.json({
-        message: "none found",
-      });
-    await res.json({
-      user: foundUser,
-    });
+    // if (!foundUser)
+    //   return res.json({
+    //     message: "none found",
+    //   });
+    await res.json(foundUser);
   } catch (error) {
     console.log(error);
   }
@@ -33,19 +31,20 @@ const show = async (req, res) => {
 
 const create = async (req, res) => {
   const body = JSON.parse(req.body.body);
-  const email = body.user.email;
-  const googleId = body.user.id;
-  const name = body.user.name;
-  const avatar = body.user.photoUrl;
+  console.log(body);
+  const email = body.email;
+  const googleId = body.id;
+  const name = body.name;
+  const avatar = body.photoUrl;
   const user = { email, googleId, name, avatar };
   try {
     const checkUser = await db.User.findOne({ googleId: googleId });
     if (checkUser) {
       console.log("user already exists");
-      await res.json({ user: checkUser });
+      await res.json(checkUser);
     } else {
       const createdUser = await db.User.create(user);
-      await res.json({ user: createdUser });
+      await res.json(createdUser);
     }
   } catch (error) {
     console.log(error);

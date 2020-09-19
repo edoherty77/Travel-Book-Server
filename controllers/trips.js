@@ -14,18 +14,19 @@ const index = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  console.log(req.body);
   try {
-    const name = await JSON.parse(req.body.body);
+    const data = await JSON.parse(req.body.body);
+    const name = data.tripName;
     const date = new Date();
     const year = date.getFullYear();
-    const data = {
+    const dataObj = {
       name: name,
       year: year,
     };
-    const createdTrip = await db.Trip.create(data);
+    const createdTrip = await db.Trip.create(dataObj);
 
-    const foundUser = await db.User.findById(req.params.id);
+    const googleId = data.userId;
+    const foundUser = await db.User.findOne({ googleId: googleId });
     foundUser.trips.push(createdTrip);
     await foundUser.save();
 
