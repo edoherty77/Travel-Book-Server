@@ -15,14 +15,22 @@ const index = async (req, res) => {
 
 const create = async (req, res) => {
   try {
-    const name = await JSON.parse(req.body.body)
+    const data = await JSON.parse(req.body.body)
+    const name = data.tripName
     const date = new Date()
     const year = date.getFullYear()
-    const data = {
+    const dataObj = {
       name: name,
       year: year,
     }
-    const createdTrip = await db.Trip.create(data)
+    const createdTrip = await db.Trip.create(dataObj)
+
+    const googleId = data.userId
+    const foundUser = await db.User.findOne({ googleId: googleId })
+    foundUser.trips.push(createdTrip)
+    await foundUser.save()
+
+    await createdTrip.save()
     await res.json({ trip: createdTrip })
   } catch (error) {
     console.log(error)

@@ -15,16 +15,13 @@ const db = require('../models')
 const create = async (req, res) => {
   try {
     const data = await JSON.parse(req.body.body)
-    // console.log(data)
+    console.log(data)
     const createdMemory = await db.Memory.create(data.memory)
     const foundTrip = await db.Trip.findOne({ name: data.tripName })
-    // console.log('trip', foundTrip)
     foundTrip.memories.push(createdMemory)
-    await foundTrip.save()
-    await createdMemory.save()
-    console.log('createdMem:', createdMemory)
-    console.log('updatedTrip:', foundTrip)
-    await res.json({ memory: createdMemory })
+    foundTrip.save()
+    createdMemory.save()
+    await res.json(createdMemory)
   } catch (error) {
     console.log(error)
   }
