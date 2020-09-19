@@ -52,40 +52,31 @@ const create = async (req, res) => {
 // }
 // }
 
-// const destroy = async (req, res) => {
-// try {
-//     const deletedPost = await db.Post.findOneAndDelete({
-//         songId: req.params.songId
-//     })
+const destroy = async (req, res) => {
+  try {
+    const deletedMemory = await db.Memory.findByIdDelete(req.params.id);
 
-//     if (!deletedPost) return res.json({
-//         message: 'No post with that ID'
-//     })
+    if (!deletedMemory)
+      return res.json({
+        message: "No post with that ID",
+      });
 
-//     const foundPlaylist = await db.Playlist.findOne({
-//         'posts': deletedPost._id
-//     })
-//     if (foundPlaylist) {
-//         console.log('deleting POST from PLAYLIST:', foundPlaylist.title); // TODO: remove
-//         await foundPlaylist.posts.remove(deletedPost)
-//         await foundPlaylist.save()
-//     }
+    const foundTrip = await db.Trip.findOne({
+      memories: deletedMemory._id,
+    });
+    if (foundTrip) {
+      console.log("deleting MEMORY from TRIP:", foundTrip.name); // TODO: remove
+      await foundTrip.memories.remove(deletedMemory);
+      await foundTrip.save();
+    }
 
-//     const foundUser = await db.User.findOne({
-//         'posts': deletedPost._id
-//     })
-//     if (foundUser) {
-//         console.log('deleting POST from USER:', foundUser.name) // TODO: remove
-//         foundUser.posts.remove(deletedPost)
-//         await foundUser.save()
-//     }
-
-//     await res.json({post: deletedPost})
-// } catch (error) {
-//     console.log(error)
-// }
-// }
+    await res.json({ post: deletedMemory });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 module.exports = {
   create,
+  destroy,
 };

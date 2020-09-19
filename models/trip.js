@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const TripSchema = new Schema({
   name: String,
@@ -8,7 +8,7 @@ const TripSchema = new Schema({
   memories: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Memory',
+      ref: "Memory",
     },
   ],
   // miles : {
@@ -18,8 +18,8 @@ const TripSchema = new Schema({
   //   train: Number,
   //   foot: Number
   // }
-})
+});
 
-const Trip = mongoose.model('Trip', TripSchema)
+const Trip = mongoose.model("Trip", TripSchema);
 
-module.exports = Trip
+module.exports = Trip;
