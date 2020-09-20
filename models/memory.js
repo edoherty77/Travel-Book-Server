@@ -10,6 +10,7 @@ const MemorySchema = new Schema({
   type: String,
   transpo: String,
   photo: String,
+  distanceTraveled: Number,
 })
 
 const Memory = mongoose.model('Memory', MemorySchema)
