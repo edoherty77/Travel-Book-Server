@@ -41,19 +41,22 @@ const create = async (req, res) => {
 // }
 // }
 
-// const show = async (req, res) => {
-//   try {
-//       const foundPost = await db.Post.findById(req.params.id)
-//       if (!foundPost) return await res.json({
-//           message: 'No post with that ID'
-//       })
-//       await res.json({post: foundPost})
-//   } catch (error) {
-//       console.log(error)
-//   }
-// }
+const show = async (req, res) => {
+  try {
+    const foundMemory = await db.Memory.findById(req.params.id)
+    if (!foundMemory)
+      return await res.json({
+        message: "No post with that ID",
+      })
+    await res.json(foundMemory)
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const destroy = async (req, res) => {
+  console.log("req.params:", req.params)
+  console.log("req.body:", req.body)
   try {
     const deletedMemory = await db.Memory.findByIdDelete(req.params.id)
 
@@ -79,6 +82,7 @@ const destroy = async (req, res) => {
 
 module.exports = {
   index,
+  show,
   create,
   destroy,
 }
