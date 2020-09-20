@@ -8,7 +8,7 @@ const index = async (req, res) => {
         message: "No Trips found",
       })
     await res.json({
-      trips: foundTrips
+      trips: foundTrips,
     })
   } catch (error) {
     console.log(error)
@@ -29,14 +29,14 @@ const create = async (req, res) => {
 
     const googleId = data.userId
     const foundUser = await db.User.findOne({
-      googleId: googleId
+      googleId: googleId,
     })
     foundUser.trips.push(createdTrip)
     await foundUser.save()
 
     await createdTrip.save()
     await res.json({
-      trip: createdTrip
+      trip: createdTrip,
     })
   } catch (error) {
     console.log(error)
@@ -59,17 +59,15 @@ const create = async (req, res) => {
 const show = async (req, res) => {
   try {
     const foundTrip = await db.Trip.findOne({
-      name: req.params.name
-    }).populate(
-      "memories"
-    )
+      name: req.params.name,
+    }).populate("memories")
     if (!foundTrip)
       return await res.json({
         message: "Sorry",
       })
     // console.log(foundTrip)
     await res.json({
-      trip: foundTrip
+      trip: foundTrip,
     })
   } catch (error) {
     console.log(error)
@@ -82,13 +80,13 @@ const destroy = async (req, res) => {
 
     const deletedMemories = await db.Memory.deleteMany({
       _id: {
-        $in: deletedTrip.memories
+        $in: deletedTrip.memories,
       },
     })
     console.log("deleted all memories from", deletedTrip)
-
+    console.log("deleted trip>>>", deletedTrip)
     await res.json({
-      deleted: deletedTrip
+      deleted: deletedTrip,
     })
   } catch (error) {
     console.log(error)
