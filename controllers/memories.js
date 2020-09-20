@@ -56,9 +56,8 @@ const show = async (req, res) => {
 
 const destroy = async (req, res) => {
   console.log("req.params:", req.params)
-  console.log("req.body:", req.body)
   try {
-    const deletedMemory = await db.Memory.findByIdDelete(req.params.id)
+    const deletedMemory = await db.Memory.findByIdAndDelete(req.params.id)
 
     if (!deletedMemory)
       return res.json({
@@ -74,7 +73,7 @@ const destroy = async (req, res) => {
       await foundTrip.save()
     }
 
-    await res.json({ post: deletedMemory })
+    await res.json({ memory: deletedMemory })
   } catch (error) {
     console.log(error)
   }
