@@ -1,13 +1,15 @@
-const db = require('../models')
+const db = require("../models")
 
 const index = async (req, res) => {
   try {
     const foundTrips = await db.Trip.find({})
     if (!foundTrips.length)
       return await res.json({
-        message: 'No posts found',
+        message: "No Trips found",
       })
-    await res.json({ trips: foundTrips })
+    await res.json({
+      trips: foundTrips,
+    })
   } catch (error) {
     console.log(error)
   }
@@ -26,12 +28,16 @@ const create = async (req, res) => {
     const createdTrip = await db.Trip.create(dataObj)
 
     const googleId = data.userId
-    const foundUser = await db.User.findOne({ googleId: googleId })
+    const foundUser = await db.User.findOne({
+      googleId: googleId,
+    })
     foundUser.trips.push(createdTrip)
     await foundUser.save()
 
     await createdTrip.save()
-    await res.json({ trip: createdTrip })
+    await res.json({
+      trip: createdTrip,
+    })
   } catch (error) {
     console.log(error)
   }
@@ -39,12 +45,12 @@ const create = async (req, res) => {
 
 // const update = async (req, res) => {
 // try {
-//     const updatedPost = await db.Post.findByIdAndUpdate(req.params.id, req.body, {new: true})
-//     if (!updatedPost) return await res.json({
-//         message: 'No post with that ID'
+//     const updatedTrip = await db.Trip.findByIdAndUpdate(req.params.id, req.body, {new: true})
+//     if (!updatedTrip) return await res.json({
+//         message: 'No Trip with that ID'
 //     })
-//     await updatedPost.save()
-//     await res.json({post: updatedPost})
+//     await updatedTrip.save()
+//     await res.json({Trip: updatedTrip})
 // } catch (error) {
 //     console.log(error)
 // }
@@ -52,56 +58,44 @@ const create = async (req, res) => {
 
 const show = async (req, res) => {
   try {
-    const foundTrip = await db.Trip.findOne({ name: req.params.name }).populate(
-      'memories',
-    )
+    const foundTrip = await db.Trip.findOne({
+      name: req.params.name,
+    }).populate("memories")
     if (!foundTrip)
       return await res.json({
-        message: 'Sorry',
+        message: "Sorry",
       })
     // console.log(foundTrip)
-    await res.json({ trip: foundTrip })
+    await res.json({
+      trip: foundTrip,
+    })
   } catch (error) {
     console.log(error)
   }
 }
 
-// const destroy = async (req, res) => {
-// try {
-//     const deletedPost = await db.Post.findOneAndDelete({
-//         songId: req.params.songId
-//     })
+const destroy = async (req, res) => {
+  try {
+    const deletedTrip = await db.Trip.findByIdAndDelete(req.params.id)
 
-//     if (!deletedPost) return res.json({
-//         message: 'No post with that ID'
-//     })
-
-//     const foundPlaylist = await db.Playlist.findOne({
-//         'posts': deletedPost._id
-//     })
-//     if (foundPlaylist) {
-//         console.log('deleting POST from PLAYLIST:', foundPlaylist.title); // TODO: remove
-//         await foundPlaylist.posts.remove(deletedPost)
-//         await foundPlaylist.save()
-//     }
-
-//     const foundUser = await db.User.findOne({
-//         'posts': deletedPost._id
-//     })
-//     if (foundUser) {
-//         console.log('deleting POST from USER:', foundUser.name) // TODO: remove
-//         foundUser.posts.remove(deletedPost)
-//         await foundUser.save()
-//     }
-
-//     await res.json({post: deletedPost})
-// } catch (error) {
-//     console.log(error)
-// }
-// }
+    const deletedMemories = await db.Memory.deleteMany({
+      _id: {
+        $in: deletedTrip.memories,
+      },
+    })
+    console.log("deleted all memories from", deletedTrip)
+    console.log("deleted trip>>>", deletedTrip)
+    await res.json({
+      deleted: deletedTrip,
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 module.exports = {
   index,
   create,
   show,
+  destroy,
 }
