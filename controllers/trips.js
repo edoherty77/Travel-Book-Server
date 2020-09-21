@@ -84,6 +84,16 @@ const destroy = async (req, res) => {
       },
     })
     console.log("deleted all memories from", deletedTrip)
+
+    const foundUser = await db.User.findOne({
+      trips: deletedTrip._id,
+    })
+    if (foundUser) {
+      console.log("deleting TRIP from USER:", foundUser.name) // TODO: remove
+      await foundUser.trips.remove(deletedTrip)
+      await foundUser.save()
+    }
+
     console.log("deleted trip>>>", deletedTrip)
     await res.json({
       deleted: deletedTrip,
