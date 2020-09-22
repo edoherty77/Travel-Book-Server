@@ -1,4 +1,4 @@
-const db = require('../models')
+const db = require("../models")
 
 const index = async (req, res) => {
   // let memories = []
@@ -14,7 +14,7 @@ const index = async (req, res) => {
     const foundMemories = await db.Memory.find({ userId: req.params.id })
     if (!foundMemories.length)
       return await res.json({
-        message: 'No memories found',
+        message: "No memories found",
       })
     await res.json({ memories: foundMemories })
   } catch (error) {
@@ -55,7 +55,7 @@ const show = async (req, res) => {
     console.log(foundMemory)
     if (!foundMemory)
       return await res.json({
-        message: 'No post with that ID',
+        message: "No post with that ID",
       })
     await res.json(foundMemory)
   } catch (error) {
@@ -64,20 +64,20 @@ const show = async (req, res) => {
 }
 
 const destroy = async (req, res) => {
-  console.log('req.params:', req.params)
+  console.log("req.params:", req.params)
   try {
     const deletedMemory = await db.Memory.findByIdAndDelete(req.params.id)
 
     if (!deletedMemory)
       return res.json({
-        message: 'No memory with that ID',
+        message: "No memory with that ID",
       })
 
     const foundTrip = await db.Trip.findOne({
       memories: deletedMemory._id,
     })
     if (foundTrip) {
-      console.log('deleting MEMORY from TRIP:', foundTrip.name) // TODO: remove
+      console.log("deleting MEMORY from TRIP:", foundTrip.name) // TODO: remove
       await foundTrip.memories.remove(deletedMemory)
       await foundTrip.save()
     }
