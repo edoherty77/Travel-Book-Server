@@ -12,34 +12,11 @@ const app = express()
 
 const Trip = require('./models/trip')
 
-// const data = {
-//   name: 'San Diego',
-//   year: 2015,
-// }
-
-// Trip.create(data, (err, created) => {
-//   if (err) {
-//     console.log(err)
-//   } else {
-//     console.log('added')
-//     created.save()
-//   }
-// })
-
 // parse requests of content-type: application/json
 app.use(bodyParser.json())
 
 // parse requests of content-type: application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
-
-// CORS
-// app.use(
-//   cors({
-//     origin: [process.env.CLIENT_URI],
-//     credentials: true,
-//     optionsSuccessStatus: 200,
-//   })
-// );
 
 //middleware - session config
 app.use(
