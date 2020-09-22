@@ -1,8 +1,17 @@
 const db = require("../models")
 
 const index = async (req, res) => {
+  // let memories = []
   try {
-    const foundMemories = await db.Memory.find({})
+    // const foundUser = await db.User.findOne({
+    //   googleId: req.params.userId,
+    // }).populate('trips', 'memories')
+    // foundUser.trips.forEach((trip) => {
+    //   memories = trip.populate('memories')
+    // })
+    // console.log(memories)
+    // console.log(foundUser)
+    const foundMemories = await db.Memory.find({ userId: req.params.id })
     if (!foundMemories.length)
       return await res.json({
         message: "No memories found",
@@ -43,6 +52,7 @@ const create = async (req, res) => {
 const show = async (req, res) => {
   try {
     const foundMemory = await db.Memory.findById(req.params.id)
+    console.log(foundMemory)
     if (!foundMemory)
       return await res.json({
         message: "No post with that ID",

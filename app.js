@@ -10,12 +10,14 @@ require("./passport/googleStrategy")
 
 const app = express()
 
+
 // parse requests of content-type: application/json
 app.use(bodyParser.json())
 
 // parse requests of content-type: application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
 
+<<<<<<< HEAD
 // CORS
 app.use(
   cors({
@@ -25,6 +27,8 @@ app.use(
   })
 )
 
+=======
+>>>>>>> bb3d60f630900a0c3a93d9a614b3ef78ebab2a30
 //middleware - session config
 app.use(
   session({
